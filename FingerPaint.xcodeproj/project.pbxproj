@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		86ECB1321CC86AEA00E5259D /* FingerPaint.h in Headers */ = {isa = PBXBuildFile; fileRef = 86ECB1311CC86AEA00E5259D /* FingerPaint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		86ECB1391CC86AEA00E5259D /* FingerPaint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; };
+		86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		86ECB13A1CC86AEA00E5259D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 86ECB1251CC86AEA00E5259D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 86ECB12D1CC86AEA00E5259D;
+			remoteInfo = FingerPaint;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FingerPaint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86ECB1311CC86AEA00E5259D /* FingerPaint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerPaint.h; sourceTree = "<group>"; };
+		86ECB1331CC86AEA00E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86ECB1381CC86AEA00E5259D /* FingerPaintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FingerPaintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FingerPaintTests.swift; sourceTree = "<group>"; };
+		86ECB13F1CC86AEA00E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		86ECB12A1CC86AEA00E5259D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86ECB1351CC86AEA00E5259D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86ECB1391CC86AEA00E5259D /* FingerPaint.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		86ECB1241CC86AEA00E5259D = {
+			isa = PBXGroup;
+			children = (
+				86ECB1301CC86AEA00E5259D /* FingerPaint */,
+				86ECB13C1CC86AEA00E5259D /* FingerPaintTests */,
+				86ECB12F1CC86AEA00E5259D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86ECB12F1CC86AEA00E5259D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */,
+				86ECB1381CC86AEA00E5259D /* FingerPaintTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		86ECB1301CC86AEA00E5259D /* FingerPaint */ = {
+			isa = PBXGroup;
+			children = (
+				86ECB1311CC86AEA00E5259D /* FingerPaint.h */,
+				86ECB1331CC86AEA00E5259D /* Info.plist */,
+			);
+			path = FingerPaint;
+			sourceTree = "<group>";
+		};
+		86ECB13C1CC86AEA00E5259D /* FingerPaintTests */ = {
+			isa = PBXGroup;
+			children = (
+				86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */,
+				86ECB13F1CC86AEA00E5259D /* Info.plist */,
+			);
+			path = FingerPaintTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		86ECB12B1CC86AEA00E5259D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86ECB1321CC86AEA00E5259D /* FingerPaint.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		86ECB12D1CC86AEA00E5259D /* FingerPaint */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86ECB1421CC86AEA00E5259D /* Build configuration list for PBXNativeTarget "FingerPaint" */;
+			buildPhases = (
+				86ECB1291CC86AEA00E5259D /* Sources */,
+				86ECB12A1CC86AEA00E5259D /* Frameworks */,
+				86ECB12B1CC86AEA00E5259D /* Headers */,
+				86ECB12C1CC86AEA00E5259D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FingerPaint;
+			productName = FingerPaint;
+			productReference = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		86ECB1371CC86AEA00E5259D /* FingerPaintTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 86ECB1451CC86AEA00E5259D /* Build configuration list for PBXNativeTarget "FingerPaintTests" */;
+			buildPhases = (
+				86ECB1341CC86AEA00E5259D /* Sources */,
+				86ECB1351CC86AEA00E5259D /* Frameworks */,
+				86ECB1361CC86AEA00E5259D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				86ECB13B1CC86AEA00E5259D /* PBXTargetDependency */,
+			);
+			name = FingerPaintTests;
+			productName = FingerPaintTests;
+			productReference = 86ECB1381CC86AEA00E5259D /* FingerPaintTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		86ECB1251CC86AEA00E5259D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Sticks;
+				TargetAttributes = {
+					86ECB12D1CC86AEA00E5259D = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					86ECB1371CC86AEA00E5259D = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 86ECB1281CC86AEA00E5259D /* Build configuration list for PBXProject "FingerPaint" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 86ECB1241CC86AEA00E5259D;
+			productRefGroup = 86ECB12F1CC86AEA00E5259D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				86ECB12D1CC86AEA00E5259D /* FingerPaint */,
+				86ECB1371CC86AEA00E5259D /* FingerPaintTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		86ECB12C1CC86AEA00E5259D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86ECB1361CC86AEA00E5259D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		86ECB1291CC86AEA00E5259D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		86ECB1341CC86AEA00E5259D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		86ECB13B1CC86AEA00E5259D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 86ECB12D1CC86AEA00E5259D /* FingerPaint */;
+			targetProxy = 86ECB13A1CC86AEA00E5259D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		86ECB1401CC86AEA00E5259D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		86ECB1411CC86AEA00E5259D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		86ECB1431CC86AEA00E5259D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FingerPaint/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sticks.FingerPaint;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		86ECB1441CC86AEA00E5259D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FingerPaint/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sticks.FingerPaint;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		86ECB1461CC86AEA00E5259D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FingerPaintTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sticks.FingerPaintTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		86ECB1471CC86AEA00E5259D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = FingerPaintTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sticks.FingerPaintTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		86ECB1281CC86AEA00E5259D /* Build configuration list for PBXProject "FingerPaint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86ECB1401CC86AEA00E5259D /* Debug */,
+				86ECB1411CC86AEA00E5259D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		86ECB1421CC86AEA00E5259D /* Build configuration list for PBXNativeTarget "FingerPaint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86ECB1431CC86AEA00E5259D /* Debug */,
+				86ECB1441CC86AEA00E5259D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		86ECB1451CC86AEA00E5259D /* Build configuration list for PBXNativeTarget "FingerPaintTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86ECB1461CC86AEA00E5259D /* Debug */,
+				86ECB1471CC86AEA00E5259D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 86ECB1251CC86AEA00E5259D /* Project object */;
+}
