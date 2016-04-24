@@ -8,17 +8,28 @@
 
 import Foundation
 
+public class TouchPath {
+	public let initialTouch: Touch
+	public var touches: [Touch]
+	
+	public init(initial: Touch) {
+		self.initialTouch = initial
+		touches = [self.initialTouch]
+	}
+}
+
 public struct Touch {
 	
-	enum Event {
-		case Down
-		case Up
+	public let location: CGPoint
+	public let phase: UITouchPhase
+	
+	public init(uiTouch: UITouch) {
+		self.phase = uiTouch.phase
+		self.location = uiTouch.locationInView(uiTouch.view)
 	}
 	
-	let location: CGPoint
-	let event: Event
-	init(location: CGPoint, event: Event = .Down) {
+	public init(location: CGPoint, phase: UITouchPhase) {
 		self.location = location
-		self.event = event
+		self.phase = phase
 	}
 }
