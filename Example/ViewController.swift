@@ -72,7 +72,9 @@ class ViewController: UIViewController {
 			case .Double(let first, let second):
 //				path?.addLineToPoint(first.locationInView(view))
 				points.removeLast()
-				points.removeLast()
+				if points.count > 0 {
+					points.removeLast()
+				}
 				points.append(first.locationInView(view))
 				points.append(second.locationInView(view))
 			}
