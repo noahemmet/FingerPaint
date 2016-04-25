@@ -19,7 +19,6 @@
 		86ECB16E1CC86CA200E5259D /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB16D1CC86CA200E5259D /* Touch.swift */; };
 		86FC22EB1CCD6F71008945C7 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22E91CCD6F71008945C7 /* Shape.swift */; };
 		86FC22EC1CCD6F71008945C7 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22EA1CCD6F71008945C7 /* Tool.swift */; };
-		86FC22EE1CCD6FC0008945C7 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22ED1CCD6FC0008945C7 /* Canvas.swift */; };
 		86FC22F01CCD76C1008945C7 /* PaintGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22EF1CCD76C1008945C7 /* PaintGestureRecognizer.swift */; };
 		86FC22F21CCD7836008945C7 /* FingerPaint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; };
 		86FC22F31CCD7836008945C7 /* FingerPaint.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -83,7 +82,6 @@
 		86ECB16D1CC86CA200E5259D /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
 		86FC22E91CCD6F71008945C7 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		86FC22EA1CCD6F71008945C7 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
-		86FC22ED1CCD6FC0008945C7 /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		86FC22EF1CCD76C1008945C7 /* PaintGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,7 +185,6 @@
 		86ECB16C1CC86C9A00E5259D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				86FC22ED1CCD6FC0008945C7 /* Canvas.swift */,
 				86ECB16D1CC86CA200E5259D /* Touch.swift */,
 				86FC22E91CCD6F71008945C7 /* Shape.swift */,
 				86FC22EA1CCD6F71008945C7 /* Tool.swift */,
@@ -372,7 +369,6 @@
 				86ECB16E1CC86CA200E5259D /* Touch.swift in Sources */,
 				86FC22F01CCD76C1008945C7 /* PaintGestureRecognizer.swift in Sources */,
 				86FC22EB1CCD6F71008945C7 /* Shape.swift in Sources */,
-				86FC22EE1CCD6FC0008945C7 /* Canvas.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

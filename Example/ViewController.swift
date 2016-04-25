@@ -11,42 +11,46 @@ import FingerPaint
 
 class ViewController: UIViewController {
 	
-	@IBOutlet var canvasView: CanvasView!
-	var path: UIBezierPath?
+//	var path: UIBezierPath?
 	var shapeLayer: CAShapeLayer?
 	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
 	var colorIndex = 0
+	var points: [CGPoint] = []
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		canvasView.canvasDelegate = self
-		let paintGestureRecognizer = PaintGestureRecognizer(target: self, action: #selector(ViewController.touched(_:)))
+		let paintGestureRecognizer = PaintGestureRecognizer(target: self, action: #selector(ViewController.handlePaint(_:)))
 		view.addGestureRecognizer(paintGestureRecognizer)
-		
-		
-	}
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
+//		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
+//		view.addGestureRecognizer(tapGestureRecognizer)
+//		tapGestureRecognizer.cancelsTouchesInView = true
 	}
 	
-	func touched(paintGestureRecognizer: PaintGestureRecognizer) {
+	func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+		print("tap")
+	}
+	
+	func handlePaint(paintGestureRecognizer: PaintGestureRecognizer) {
 		switch paintGestureRecognizer.state {
 		case .Began:
 			print("vc touch began")
 			let path = UIBezierPath()
+			points = []
 			switch paintGestureRecognizer.anchorState {
 			case .None:
 				print("unreachable")
 			case .Single(let touch):
-				path.moveToPoint(touch.locationInView(view))
-				path.addLineToPoint(touch.locationInView(view))
+				points.append(touch.locationInView(view))
 			case .Double(let first, let second):
 //				path.moveToPoint(first.locationInView(view))
 //				path.moveToPoint(second.locationInView(view))
-				path.addLineToPoint(second.locationInView(view))
+//				path.addLineToPoint(second.locationInView(view))
+				points.append(second.locationInView(view))
 			}
-			self.path = path
+			path.moveToPoint(points[0])
+			for point in points {
+				path.addLineToPoint(point)
+			}
 			let shapeLayer = CAShapeLayer()
 			shapeLayer.path = path.CGPath
 			shapeLayer.strokeColor = colors[colorIndex].CGColor
@@ -60,34 +64,26 @@ class ViewController: UIViewController {
 			self.shapeLayer = shapeLayer
 			view.layer.addSublayer(shapeLayer)
 		case .Changed:
-			print("vc touch changed")
 			switch paintGestureRecognizer.anchorState {
 			case .None:
 				print("unreachable")
 			case .Single(let touch):
-				path?.addLineToPoint(touch.locationInView(view))
+				points.append(touch.locationInView(view))
 			case .Double(let first, let second):
 //				path?.addLineToPoint(first.locationInView(view))
-				path?.addLineToPoint(second.locationInView(view))
+				points.removeLast()
+				points.removeLast()
+				points.append(first.locationInView(view))
+				points.append(second.locationInView(view))
 			}
-			shapeLayer?.path = path?.CGPath
+			let path = UIBezierPath()
+			path.moveToPoint(points[0])
+			for point in points {
+				path.addLineToPoint(point)
+			}
+			shapeLayer?.path = path.CGPath
 		default:
 			break
 		}
 	}
-}
-
-
-extension ViewController {
-//	func touchPathCreated(touchPath: TouchPath) {
-//		print("created", touchPath)
-//	}
-//	
-//	func touchPathUpdated(touchPath: TouchPath) {
-//		print("updated", touchPath)
-//	}
-//	
-//	func touchPathEnded(touchPath: TouchPath) {
-//		print("ended", touchPath)
-//	}
 }

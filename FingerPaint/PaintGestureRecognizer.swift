@@ -92,6 +92,9 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 			print("default ended (failed)")
 			break
 		}
-		
+	}
+	
+	public override func shouldRequireFailureOfGestureRecognizer(otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+		return otherGestureRecognizer is UITapGestureRecognizer
 	}
 }
