@@ -14,7 +14,8 @@ class ViewController: UIViewController {
 	@IBOutlet var canvasView: CanvasView!
 	var path: UIBezierPath?
 	var shapeLayer: CAShapeLayer?
-	
+	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
+	var colorIndex = 0
 	override func viewDidLoad() {
 		super.viewDidLoad()
 //		canvasView.canvasDelegate = self
@@ -39,15 +40,23 @@ class ViewController: UIViewController {
 				print("unreachable")
 			case .Single(let touch):
 				path.moveToPoint(touch.locationInView(view))
+				path.addLineToPoint(touch.locationInView(view))
 			case .Double(let first, let second):
-				path.moveToPoint(first.locationInView(view))
-				path.moveToPoint(second.locationInView(view))
+//				path.moveToPoint(first.locationInView(view))
+//				path.moveToPoint(second.locationInView(view))
+				path.addLineToPoint(second.locationInView(view))
 			}
 			self.path = path
 			let shapeLayer = CAShapeLayer()
 			shapeLayer.path = path.CGPath
-			shapeLayer.strokeColor = UIColor.purpleColor().CGColor
-			shapeLayer.lineWidth = 3
+			shapeLayer.strokeColor = colors[colorIndex].CGColor
+			if 0..<colors.count-1 ~= colorIndex {
+				colorIndex += 1
+			} else {
+				colorIndex = 0
+			}
+			shapeLayer.fillColor = UIColor.clearColor().CGColor
+			shapeLayer.lineWidth = 8
 			self.shapeLayer = shapeLayer
 			view.layer.addSublayer(shapeLayer)
 		case .Changed:
@@ -57,11 +66,11 @@ class ViewController: UIViewController {
 				print("unreachable")
 			case .Single(let touch):
 				path?.addLineToPoint(touch.locationInView(view))
-				shapeLayer?.path = path?.CGPath
 			case .Double(let first, let second):
-				path?.addLineToPoint(first.locationInView(view))
+//				path?.addLineToPoint(first.locationInView(view))
 				path?.addLineToPoint(second.locationInView(view))
 			}
+			shapeLayer?.path = path?.CGPath
 		default:
 			break
 		}

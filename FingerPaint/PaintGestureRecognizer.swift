@@ -17,16 +17,7 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 		case Double(first: UITouch, second: UITouch)
 	}
 	
-	public enum PaintPhase {
-		case AnchoredLine
-		case UnanchoredLine
-		case Draw
-	}
-	
 	public var anchorState: AnchorState = .None
-	var paintPhase: PaintPhase?
-	var firstAnchor: UITouch?
-	var secondAnchor: UITouch?
 	
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
