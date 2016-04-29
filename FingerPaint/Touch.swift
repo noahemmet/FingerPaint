@@ -21,15 +21,13 @@ public class TouchPath {
 public struct Touch {
 	
 	public let location: CGPoint
-	public let phase: UITouchPhase
 	
 	public init(uiTouch: UITouch) {
-		self.phase = uiTouch.phase
 		self.location = uiTouch.locationInView(uiTouch.view)
+		print(location)
 	}
 	
-	public init(location: CGPoint, phase: UITouchPhase) {
+	public init(location: CGPoint) {
 		self.location = location
-		self.phase = phase
 	}
 }

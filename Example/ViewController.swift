@@ -9,6 +9,8 @@
 import UIKit
 import FingerPaint
 
+
+
 class ViewController: UIViewController {
 	
 	var shapeLayers: [CAShapeLayer] = []
@@ -35,13 +37,13 @@ class ViewController: UIViewController {
 			print("vc touch began")
 			let path = UIBezierPath()
 			points = []
-			switch paintGestureRecognizer.anchorState {
+			switch paintGestureRecognizer.anchor {
 			case .None:
 				print("unreachable")
 			case .Single(let touch):
-				points.append(touch.locationInView(view))
+				points.append(touch.location)
 			case .Double(_, let second):
-				points.append(second.locationInView(view))
+				points.append(second.location)
 			}
 			path.moveToPoint(points[0])
 			for point in points {
@@ -60,19 +62,18 @@ class ViewController: UIViewController {
 			shapeLayers.append(shapeLayer)
 			view.layer.addSublayer(shapeLayer)
 		case .Changed:
-			switch paintGestureRecognizer.anchorState {
+			switch paintGestureRecognizer.anchor {
 			case .None:
 				print("unreachable")
 			case .Single(let touch):
-				points.append(touch.locationInView(view))
+				points.append(touch.location)
 			case .Double(let first, let second):
-//				path?.addLineToPoint(first.locationInView(view))
 				points.removeLast()
 				if points.count > 0 {
 					points.removeLast()
 				}
-				points.append(first.locationInView(view))
-				points.append(second.locationInView(view))
+				points.append(first.location)
+				points.append(second.location)
 			}
 			let path = UIBezierPath()
 			path.moveToPoint(points[0])

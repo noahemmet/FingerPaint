@@ -9,43 +9,49 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
+
+public protocol PaintDelegate {
+	
+}
+
 public class PaintGestureRecognizer: UIGestureRecognizer {
 	
-	public enum AnchorState {
+	public enum Anchor {
 		case None
-		case Single(touch: UITouch)
-		case Double(first: UITouch, second: UITouch)
+		case Single(touch: Touch)
+		case Double(first: Touch, second: Touch)
 	}
 	
-	public var anchorState: AnchorState = .None
+	public var anchor: Anchor = .None
+	public var paintDelegate: PaintDelegate?
 	
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
-		let allTouches = Array(touches)
+		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
 		switch allTouches.count {
 		case 1:
-			switch anchorState {
+			switch anchor {
 			case .None:
 				print("1 began from .None to .Single")
-				anchorState = .Single(touch: allTouches[0])
+				anchor = .Single(touch: allTouches[0])
 				state = .Began
 			case .Single(let touch):
 				print("1 began from .Single to .Double")
-				anchorState = .Double(first: touch, second: allTouches[0])
+				anchor = .Double(first: touch, second: allTouches[0])
 			case .Double(_, _):
 				print("1 began from .Double to .None (failed)")
-				anchorState = .None
+				anchor = .None
 				state = .Failed
 			}
 		case 2:
-			switch anchorState {
+			switch anchor {
 			case .None:
 				print("2 began from .None to .Double")
-				anchorState = .Double(first: allTouches[0], second: allTouches[1])
+				anchor = .Double(first: allTouches[0], second: allTouches[1])
 				state = .Began
 			case .Single(_), .Double(_, _):
 				print("2 began from .Single/Double to .None (failed)")
-				anchorState = .None
+				anchor = .None
 				state = .Failed
 			}
 		default:
@@ -57,36 +63,46 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesMoved(touches, withEvent: event)
 		state = .Changed
+		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
+		switch allTouches.count {
+		case 1:
+			anchor = .Single(touch: allTouches[0])
+		case 2:
+			anchor = .Double(first: allTouches[0], second: allTouches[1])
+		default:
+			print("default began (failed)")
+			state = .Failed
+		}
 	}
 	
 	override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
 		switch touches.count {
 		case 1:
-			switch anchorState {
+			switch anchor {
 			case .None:
 				print("1 ended from .None (failed)")
 				state = .Failed
 			case .Single(_):
 				print("1 ended from .Single to .None")
-				anchorState = .None
+				anchor = .None
 				state = .Ended
 			case .Double(_, let secondTouch):
 				print("1 ended from .Double to .Single")
-				anchorState = .Single(touch: secondTouch)
+				anchor = .Single(touch: secondTouch)
 			}
 		case 2:
-			switch anchorState {
+			switch anchor {
 			case .None:
 				print("2 ended from .None (failed)")
 				state = .Failed
 			case .Single(_):
 				print("2 ended .Single (failed)")
-				anchorState = .None
+				anchor = .None
 				state = .Failed
 			case .Double(_, let secondTouch):
 				print("2 ended from .Double to .Single")
-				anchorState = .Single(touch: secondTouch)
+				anchor = .Single(touch: secondTouch)
 			}
 		default:
 			print("default ended (failed)")
