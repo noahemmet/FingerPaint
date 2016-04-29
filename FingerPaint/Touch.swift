@@ -9,12 +9,16 @@
 import Foundation
 
 public class TouchPath {
-	public let initialTouch: Touch
-	public var touches: [Touch]
+	public let initial: [Touch]
+	public private(set) var history: [[Touch]]
 	
-	public init(initial: Touch) {
-		self.initialTouch = initial
-		touches = [self.initialTouch]
+	public init(initial: [Touch]) {
+		self.initial = initial
+		history = [initial]
+	}
+	
+	func addTouches(touches:[Touch]) {
+		history.append(touches)
 	}
 }
 

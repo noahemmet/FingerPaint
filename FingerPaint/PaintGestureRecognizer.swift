@@ -9,9 +9,8 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-
-public protocol PaintDelegate {
-	
+public protocol PaintGestureDelegate {
+	func paintGestureRecognizer(paintGestureRecognizer: PaintGestureRecognizer, didUpdateTouchPath: TouchPath)
 }
 
 public class PaintGestureRecognizer: UIGestureRecognizer {
@@ -20,13 +19,26 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 		case None
 		case Single(touch: Touch)
 		case Double(first: Touch, second: Touch)
+		
+		var touches: [Touch] {
+			switch self {
+			case .None:
+				return []
+			case .Single(let touch):
+				return [touch]
+			case .Double(let first, let second):
+				return [first, second]
+			}
+		}
 	}
 	
 	public var anchor: Anchor = .None
-	public var paintDelegate: PaintDelegate?
+	public var paintDelegate: PaintGestureDelegate?
+	private var touchPath: TouchPath!
 	
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
+		// TODO: Make sure touches are always the same order.
 		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
 		switch allTouches.count {
 		case 1:
@@ -58,6 +70,8 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 			print("default began (failed)")
 			state = .Failed
 		}
+		touchPath = TouchPath(initial: anchor.touches)
+		paintDelegate?.paintGestureRecognizer(self, didUpdateTouchPath: touchPath)
 	}
 	
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
@@ -73,6 +87,9 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 			print("default began (failed)")
 			state = .Failed
 		}
+		touchPath.addTouches(anchor.touches)
+		paintDelegate?.paintGestureRecognizer(self, didUpdateTouchPath: touchPath)
+
 	}
 	
 	override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
@@ -107,6 +124,12 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 		default:
 			print("default ended (failed)")
 			break
+		}
+		
+		touchPath.addTouches(anchor.touches)
+		paintDelegate?.paintGestureRecognizer(self, didUpdateTouchPath: touchPath)
+		if touchPath.history.last?.isEmpty == true {
+			touchPath = nil
 		}
 	}
 	
