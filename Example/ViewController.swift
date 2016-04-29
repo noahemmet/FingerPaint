@@ -11,8 +11,7 @@ import FingerPaint
 
 class ViewController: UIViewController {
 	
-//	var path: UIBezierPath?
-	var shapeLayer: CAShapeLayer?
+	var shapeLayers: [CAShapeLayer] = []
 	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
 	var colorIndex = 0
 	var points: [CGPoint] = []
@@ -41,10 +40,7 @@ class ViewController: UIViewController {
 				print("unreachable")
 			case .Single(let touch):
 				points.append(touch.locationInView(view))
-			case .Double(let first, let second):
-//				path.moveToPoint(first.locationInView(view))
-//				path.moveToPoint(second.locationInView(view))
-//				path.addLineToPoint(second.locationInView(view))
+			case .Double(_, let second):
 				points.append(second.locationInView(view))
 			}
 			path.moveToPoint(points[0])
@@ -61,7 +57,7 @@ class ViewController: UIViewController {
 			}
 			shapeLayer.fillColor = UIColor.clearColor().CGColor
 			shapeLayer.lineWidth = 8
-			self.shapeLayer = shapeLayer
+			shapeLayers.append(shapeLayer)
 			view.layer.addSublayer(shapeLayer)
 		case .Changed:
 			switch paintGestureRecognizer.anchorState {
@@ -83,7 +79,15 @@ class ViewController: UIViewController {
 			for point in points {
 				path.addLineToPoint(point)
 			}
-			shapeLayer?.path = path.CGPath
+			shapeLayers.last?.path = path.CGPath
+			
+		case .Ended:
+			for shape in shapeLayers {
+				shape.opacity -= 0.1
+				if shape.opacity <= 0 {
+					shape.removeFromSuperlayer()
+				}
+			}
 		default:
 			break
 		}
