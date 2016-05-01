@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86800FCE1CD331150074DD27 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86800FCD1CD331150074DD27 /* Stroke.swift */; };
 		86ECB1321CC86AEA00E5259D /* FingerPaint.h in Headers */ = {isa = PBXBuildFile; fileRef = 86ECB1311CC86AEA00E5259D /* FingerPaint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86ECB1391CC86AEA00E5259D /* FingerPaint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; };
 		86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		86800FCD1CD331150074DD27 /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
 		86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FingerPaint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86ECB1311CC86AEA00E5259D /* FingerPaint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerPaint.h; sourceTree = "<group>"; };
 		86ECB1331CC86AEA00E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				86ECB16D1CC86CA200E5259D /* Touch.swift */,
+				86800FCD1CD331150074DD27 /* Stroke.swift */,
 				86FC22E91CCD6F71008945C7 /* Shape.swift */,
 				86FC22EA1CCD6F71008945C7 /* Tool.swift */,
 				86FC22EF1CCD76C1008945C7 /* PaintGestureRecognizer.swift */,
@@ -366,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86FC22EC1CCD6F71008945C7 /* Tool.swift in Sources */,
+				86800FCE1CD331150074DD27 /* Stroke.swift in Sources */,
 				86ECB16E1CC86CA200E5259D /* Touch.swift in Sources */,
 				86FC22F01CCD76C1008945C7 /* PaintGestureRecognizer.swift in Sources */,
 				86FC22EB1CCD6F71008945C7 /* Shape.swift in Sources */,

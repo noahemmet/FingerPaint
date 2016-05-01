@@ -32,6 +32,7 @@ class ViewController: UIViewController {
 	}
 	
 	func handlePaint(paintGestureRecognizer: PaintGestureRecognizer) {
+		return
 		switch paintGestureRecognizer.state {
 		case .Began:
 			print("vc touch began")
