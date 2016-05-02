@@ -48,9 +48,14 @@ extension HistoryView: UICollectionViewDataSource, UICollectionViewDelegate {
 			return
 		}
 		let stroke = history.strokes[indexPath.row]
-		historyViewDelegate?.resetToStroke(stroke, atIndex: indexPath.row + 1)
-		history.resetToStroke(stroke, atIndex: indexPath.row + 1)
-		self.reloadData()
+		self.historyViewDelegate?.resetToStroke(stroke, atIndex: indexPath.row + 1)
+		self.history.resetToStroke(stroke, atIndex: indexPath.row + 1)
+//		let indexPaths = (indexPath.row ..< history.strokes.count).map { NSIndexPath(forItem: $0, inSection: 0) }
+		self.performBatchUpdates(
+			{ 
+//				self.deleteItemsAtIndexPaths(indexPaths)
+				self.reloadSections(NSIndexSet(index: 0))
+			}, completion: nil)
 	}
 }
 
