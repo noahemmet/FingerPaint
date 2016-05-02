@@ -52,3 +52,17 @@ public class Stroke {
 		return path
 	}
 }
+
+
+extension Stroke {
+	public func createLayer(scale scale: CGFloat = 1) -> CAShapeLayer {
+		let shapeLayer = CAShapeLayer()
+		var affineTransform = CGAffineTransformMakeScale(scale, scale)
+		let transformedPath = CGPathCreateCopyByTransformingPath(bezierPath.CGPath, &affineTransform)
+		shapeLayer.path = transformedPath
+		shapeLayer.fillColor = UIColor.clearColor().CGColor
+		shapeLayer.strokeColor = UIColor.blackColor().CGColor
+		shapeLayer.lineWidth = 8 * scale
+		return shapeLayer
+	}
+}

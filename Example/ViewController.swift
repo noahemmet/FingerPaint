@@ -13,6 +13,11 @@ import FingerPaint
 
 class ViewController: UIViewController {
 	
+	
+	@IBOutlet weak var canvasView: UIView!
+	
+	@IBOutlet weak var historyView: HistoryView!
+	
 	var shapeLayers: [CAShapeLayer] = []
 	var shapeLayer: CAShapeLayer = CAShapeLayer()
 	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
@@ -22,8 +27,14 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let paintGestureRecognizer = PaintGestureRecognizer(target: self, action: #selector(ViewController.handlePaint(_:)))
-		view.addGestureRecognizer(paintGestureRecognizer)
-		view.layer.addSublayer(shapeLayer)
+		paintGestureRecognizer.delegate = self
+		canvasView.addGestureRecognizer(paintGestureRecognizer)
+		canvasView.layer.addSublayer(shapeLayer)
+		
+		let history = History()
+		historyView.history = history
+		historyView.history.delegate = historyView
+		historyView.historyViewDelegate = self
 //		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
 //		view.addGestureRecognizer(tapGestureRecognizer)
 //		tapGestureRecognizer.cancelsTouchesInView = true
@@ -69,19 +80,43 @@ class ViewController: UIViewController {
 			shapeLayer.fillColor = UIColor.clearColor().CGColor
 			shapeLayer.lineWidth = 8
 			shapeLayers.append(shapeLayer)
-			view.layer.addSublayer(shapeLayer)
+			canvasView.layer.addSublayer(shapeLayer)
 		case .Changed:
 			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
 			
 		case .Ended:
+			historyView.history.appendStroke(paintGestureRecognizer.touchManager.stroke)
 			for shape in shapeLayers {
-				shape.opacity -= 0.1
-				if shape.opacity <= 0 {
-					shape.removeFromSuperlayer()
-				}
+//				shape.opacity -= 0.1
+//				if shape.opacity <= 0 {
+//					shape.removeFromSuperlayer()
+//				}
 			}
 		default:
 			break
 		}
+	}
+}
+
+
+extension ViewController: UIGestureRecognizerDelegate {
+	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+		
+		
+		if (touch.view != self.canvasView) { // accept only touchs on superview, not accept touchs on subviews
+			return false
+		}
+		return true
+
+	}
+}
+
+extension ViewController: HistoryViewDelegate {
+	func resetToStroke(stroke: Stroke, atIndex index: Int) {
+		for layerIndex in index..<shapeLayers.count {
+			let layer = shapeLayers[layerIndex]
+			layer.removeFromSuperlayer()
+		}
+		shapeLayers.removeLast(shapeLayers.count - index)
 	}
 }

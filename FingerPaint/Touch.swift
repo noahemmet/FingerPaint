@@ -1,5 +1,5 @@
-//
 //  Touch.swift
+//
 //  FingerPaint
 //
 //  Created by Noah Emmet on 4/20/16.
@@ -97,6 +97,7 @@ public class TouchManager {
 			case (from: .None, to: .Single(let newTouch)):
 				print("began from .None to .Single")
 				state = .Began
+				stroke = Stroke(points: [])
 //				touches = [newTouch]
 //				stroke = Stroke(points: [newTouch.location])
 				stroke.points = [newTouch.location]
@@ -104,6 +105,7 @@ public class TouchManager {
 			case (from: .None, to: .Double(let firstNewTouch, let secondNewTouch)):
 				print("began from .None to .Double")
 				state = .Began
+				stroke = Stroke(points: [])
 //				touches.insert(firstNewTouch)
 //				touches.insert(secondNewTouch)
 				let points = [firstNewTouch, secondNewTouch].map { $0.location }
@@ -113,8 +115,9 @@ public class TouchManager {
 			case (from: .Single(let touch), to: .None):
 				print("ended from .Single to .None")
 				state = .Ended
+				self.delegate?.touchManager(self, didUpdateStroke: stroke)
 //				touches.remove(touch)
-				stroke.points = []
+//				stroke.points = []
 //				stroke.finishCurrentSegment()
 				
 			case (from: .Single, to: .Single(let newTouch)):
@@ -139,9 +142,10 @@ public class TouchManager {
 //				touches.remove(secondTouch)
 				stroke.temporaryPoints = []
 				stroke.points.appendContentsOf(touches.map { $0.location })
+				self.delegate?.touchManager(self, didUpdateStroke: stroke)
 				
 			case (from: .Double(let oldFirstTouch, let oldSecondTouch), to: .Single(let newFirstTouch)):
-				print("ended from .Double to .Single")
+				print("changed from .Double to .Single")
 				state = .Changed
 //				touches.remove(oldFirstTouch)
 //				touches.remove(oldSecondTouch)
@@ -155,7 +159,7 @@ public class TouchManager {
 				let points = [firstTouch, secondTouch].map { $0.location }
 				stroke.temporaryPoints = points
 			}
-			self.delegate?.touchManager(self, didUpdateStroke: stroke)
+//			self.delegate?.touchManager(self, didUpdateStroke: stroke)
 		}
 	}
 	
@@ -181,5 +185,4 @@ public class TouchManager {
 //		self.setTouches(Set(uiTouches.map { Touch(uiTouch: $0) }))
 		self.setTouches()
 	}
-	
 }
