@@ -25,7 +25,17 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
 		touchManager.setUITouches(touches)
-		self.state = touchManager.state
+		for touch in touches {
+			touchManager.touches.insert(Touch(uiTouch: touch))
+		}
+		touchManager.setTouches()
+//		self.state = touchManager.state
+//		self.state = touchManager.state
+		if touchManager.touches.count == touches.count {
+			self.state = .Began
+		} else {
+			self.state = .Changed
+		}
 		print("began: ", touches.count)
 		// TODO: Make sure touches are always the same order.
 //		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
@@ -75,8 +85,10 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesMoved(touches, withEvent: event)
-		touchManager.setUITouches(touches)
-		self.state = touchManager.state
+//		touchManager.setUITouches(touches)
+		touchManager.setTouches()
+		self.state = .Changed
+//		self.state = touchManager.state
 //		print("ended: ", touches.count)
 //		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
 //		switch allTouches.count {
@@ -95,9 +107,20 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
-		touchManager.setUITouches(touches)
-		self.state = touchManager.state
-		print("ended: ", touches.count)
+//		touchManager.setUITouches(touches)
+//		self.state = .Changed
+//		self.state = touchManager.state
+		for touch in touches {
+			touchManager.touches.remove(Touch(uiTouch: touch))
+		}
+		print("ended: ", touchManager.touches.count)
+		touchManager.setTouches()
+		
+		if touchManager.touches.isEmpty {
+			state = .Ended
+		} else {
+			state = .Changed
+		}
 //		switch touches.count {
 //		case 1:
 //			switch anchor {

@@ -10,7 +10,7 @@ import Foundation
 
 public class Touch: Hashable {
 	
-	public let location: CGPoint
+	public var location: CGPoint
 	public weak var uiTouch: UITouch?
 	public init(uiTouch: UITouch) {
 		self.location = uiTouch.locationInView(uiTouch.view)
@@ -24,6 +24,12 @@ public class Touch: Hashable {
 	
 	public var hashValue: Int {
 		return self.uiTouch?.hashValue ?? 0
+	}
+	
+	public func updateLocation() {
+		if let uiTouch = uiTouch {
+			self.location = uiTouch.locationInView(uiTouch.view)
+		}
 	}
 }
 
@@ -85,54 +91,61 @@ public class TouchManager {
 			let fromTo = (from: oldValue, to: amount)
 			switch fromTo {
 			case (from: .None, to: .None):
-				touches = []
-				fatalError("Beginning from .None to .None is illegal")
-				
+//				touches = []
+//				fatalError("Beginning from .None to .None is illegal")
+				break
 			case (from: .None, to: .Single(let newTouch)):
 				print("began from .None to .Single")
 				state = .Began
-				touches = [newTouch]
+//				touches = [newTouch]
 //				stroke = Stroke(points: [newTouch.location])
 				stroke.points = [newTouch.location]
 				
 			case (from: .None, to: .Double(let firstNewTouch, let secondNewTouch)):
 				print("began from .None to .Double")
 				state = .Began
+//				touches.insert(firstNewTouch)
+//				touches.insert(secondNewTouch)
 				let points = [firstNewTouch, secondNewTouch].map { $0.location }
 //				stroke = Stroke(touches: touches)
 				stroke.points = points
 				
-			case (from: .Single, to: .None):
+			case (from: .Single(let touch), to: .None):
 				print("ended from .Single to .None")
 				state = .Ended
-				touches = []
+//				touches.remove(touch)
 				stroke.points = []
 //				stroke.finishCurrentSegment()
 				
 			case (from: .Single, to: .Single(let newTouch)):
 				print("moved from .Single to .Single")
+				print(newTouch.location)
+				stroke.points.append(newTouch.location)
 				state = .Changed
 				// Don't need to update touches; should be the same
-				stroke.points.append(newTouch.location)
 				
 			case (from: .Single, to: .Double(let firstNewTouch, let secondNewTouch)):
 				print("moved from .Single to .Double")
 				state = .Changed
 //				assert(existingFirstTouch === firstNewTouch, "existingFirstTouch must equal firstNewTouch")
-				touches = [firstNewTouch, secondNewTouch]
-				stroke.temporaryPoints = touches.map { $0.location }.reverse()
+				//				touches.insert(firstNewTouch)
+				//				touches.insert(secondNewTouch)
+				stroke.temporaryPoints = touches.map { $0.location }
 				
 			case (from: .Double(let firstTouch, let secondTouch), to: .None):
 				print("ended from .Double to .None")
 				state = .Ended
-				touches = [firstTouch, secondTouch]
+//				touches.remove(firstTouch)
+//				touches.remove(secondTouch)
 				stroke.temporaryPoints = []
-				stroke.points.appendContentsOf(touches.map { $0.location }.reverse())
+				stroke.points.appendContentsOf(touches.map { $0.location })
 				
-			case (from: .Double(_, _), to: .Single(let newFirstTouch)):
+			case (from: .Double(let oldFirstTouch, let oldSecondTouch), to: .Single(let newFirstTouch)):
 				print("ended from .Double to .Single")
 				state = .Changed
-				touches = [newFirstTouch]
+//				touches.remove(oldFirstTouch)
+//				touches.remove(oldSecondTouch)
+//				touches.insert(newFirstTouch)
 				stroke.points.appendContentsOf(stroke.temporaryPoints)
 				stroke.temporaryPoints = []
 				
@@ -146,11 +159,12 @@ public class TouchManager {
 		}
 	}
 	
-	public func setUITouches(uiTouches: Set<UITouch>) {
-		let touches: [Touch] = uiTouches.filter { touch in
-//			return touch.phase != .Ended
-			return true
-			}.map { Touch(uiTouch: $0) }
+	public func setTouches() {
+		for touch in self.touches {
+			touch.updateLocation()
+		}
+		
+		let touches = Array(self.touches)
 		switch touches.count {
 		case 0:
 			self.amount = .None
@@ -161,6 +175,11 @@ public class TouchManager {
 		default:
 			print("Not handling >2 touches at this time")
 		}
+	}
+	
+	public func setUITouches(uiTouches: Set<UITouch>) {
+//		self.setTouches(Set(uiTouches.map { Touch(uiTouch: $0) }))
+		self.setTouches()
 	}
 	
 }
