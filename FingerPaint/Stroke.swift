@@ -8,6 +8,10 @@
 
 import Foundation
 
+public enum TemporarySegment {
+	case Line(pointOne: CGPoint, pointTwo: CGPoint)
+}
+
 public enum Segment {
 	// FreeForm?
 	case Free(points: [CGPoint])
@@ -18,28 +22,33 @@ public enum Segment {
 /// Perhaps this always represents an in-progress `[Segment]`, 
 /// with the non-mutable variant simply a `[Segment]` itself.
 public class Stroke {
-	public private(set) var segments: [Segment]
-	public private(set) var currentSegment: Segment
-	var temporaryPoints: [CGPoint] = []
+	public var points: [CGPoint] = []
+	public var temporaryPoints: [CGPoint] = []
 	
-	public init(segment: Segment) {
-		segments = [segment]
-		currentSegment = segment
-		appendSegment(segment)
+	public init(points: [CGPoint]) {
+		self.points = points
 	}
 	
-	public func appendPoint() {
-		
+	public init(point: CGPoint) {
+		self.points = [point]
 	}
 	
-	public func appendSegment(segment: Segment) {
-		segments.append(segment)
-//		if currentSegment.dynamicType != segment.dynamicType {
-//		}
-//		switch segment {
-//		case .Free(let points):
-//			
-//		}
-		currentSegment = segment
+	public init(touches: [Touch]) {
+		self.points = touches.map { $0.location }
+	}
+	
+	public var bezierPath: UIBezierPath {
+		let path = UIBezierPath()
+		if points.count > 0 {
+			path.moveToPoint(points[0])
+			for point in points {
+				path.addLineToPoint(point)
+			}
+			
+			for point in temporaryPoints {
+				path.addLineToPoint(point)
+			}
+		}
+		return path
 	}
 }

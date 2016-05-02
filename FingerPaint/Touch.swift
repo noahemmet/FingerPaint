@@ -8,19 +8,29 @@
 
 import Foundation
 
-public class Touch {
+public class Touch: Hashable {
 	
 	public let location: CGPoint
-	
+	public weak var uiTouch: UITouch?
 	public init(uiTouch: UITouch) {
 		self.location = uiTouch.locationInView(uiTouch.view)
+		self.uiTouch = uiTouch
 		print(location)
 	}
 	
 	public init(location: CGPoint) {
 		self.location = location
 	}
+	
+	public var hashValue: Int {
+		return self.uiTouch?.hashValue ?? 0
+	}
 }
+
+public func ==(lhs: Touch, rhs: Touch) -> Bool {
+	return lhs.uiTouch === rhs.uiTouch
+}
+
 
 
 public enum Anchor {
@@ -41,7 +51,7 @@ public enum Anchor {
 }
 
 
-public enum TouchPhase {
+public enum TouchAmount {
 	case None
 	case Single(touch: Touch)
 	case Double(first: Touch, second: Touch)
@@ -58,18 +68,21 @@ public enum TouchPhase {
 	}
 }
 
-protocol TouchManagerProtocol {
-	
+public protocol TouchManagerDelegate: class {
+	func touchManager(touchManager: TouchManager, didUpdateStroke: Stroke)
 }
 
 public class TouchManager {
 	
-	var stroke: Stroke!
-	var touches: [Touch] = []
+	public var stroke: Stroke = Stroke(points: [])
+	public var touches: Set<Touch> = []
+	public var state: UIGestureRecognizerState = .Possible
 	
-	public var phase: TouchPhase = .None {
+	public weak var delegate: TouchManagerDelegate?
+	
+	public var amount: TouchAmount = .None {
 		didSet {
-			let fromTo = (from: oldValue, to: phase)
+			let fromTo = (from: oldValue, to: amount)
 			switch fromTo {
 			case (from: .None, to: .None):
 				touches = []
@@ -77,69 +90,74 @@ public class TouchManager {
 				
 			case (from: .None, to: .Single(let newTouch)):
 				print("began from .None to .Single")
+				state = .Began
 				touches = [newTouch]
-				
-				let freeSegment = Segment.Free(points: [newTouch.location])
-				stroke = Stroke(segment: freeSegment)
-				
+//				stroke = Stroke(points: [newTouch.location])
+				stroke.points = [newTouch.location]
 				
 			case (from: .None, to: .Double(let firstNewTouch, let secondNewTouch)):
 				print("began from .None to .Double")
-				touches = [firstNewTouch, secondNewTouch]
-				
-				let lineSegment = Segment.Line(pointOne: firstNewTouch.location, pointTwo: secondNewTouch.location)
-				stroke = Stroke(segment: lineSegment)
+				state = .Began
+				let points = [firstNewTouch, secondNewTouch].map { $0.location }
+//				stroke = Stroke(touches: touches)
+				stroke.points = points
 				
 			case (from: .Single, to: .None):
 				print("ended from .Single to .None")
+				state = .Ended
 				touches = []
+				stroke.points = []
 //				stroke.finishCurrentSegment()
 				
-			case (from: .Single, to: .Single):
+			case (from: .Single, to: .Single(let newTouch)):
 				print("moved from .Single to .Single")
+				state = .Changed
 				// Don't need to update touches; should be the same
+				stroke.points.append(newTouch.location)
 				
-				switch stroke.currentSegment! {
-				case .Free(let points):
-					stroke.currentSegment.po
-				default:
-					fatalError("Single to Single must be Segment.Free")
-				}
-				
-			case (from: .Single(let existingFirstTouch), to: .Double(let firstNewTouch, let secondNewTouch)):
+			case (from: .Single, to: .Double(let firstNewTouch, let secondNewTouch)):
+				print("moved from .Single to .Double")
+				state = .Changed
 //				assert(existingFirstTouch === firstNewTouch, "existingFirstTouch must equal firstNewTouch")
 				touches = [firstNewTouch, secondNewTouch]
+				stroke.temporaryPoints = touches.map { $0.location }.reverse()
 				
-			case (from: .Double(_, _), to: .None):
+			case (from: .Double(let firstTouch, let secondTouch), to: .None):
 				print("ended from .Double to .None")
-				touches = []
+				state = .Ended
+				touches = [firstTouch, secondTouch]
+				stroke.temporaryPoints = []
+				stroke.points.appendContentsOf(touches.map { $0.location }.reverse())
 				
 			case (from: .Double(_, _), to: .Single(let newFirstTouch)):
 				print("ended from .Double to .Single")
+				state = .Changed
 				touches = [newFirstTouch]
+				stroke.points.appendContentsOf(stroke.temporaryPoints)
+				stroke.temporaryPoints = []
 				
-			case (from: .Double(_, _), to: .Double(_, _)):
+			case (from: .Double(_, _), to: .Double(let firstTouch, let secondTouch)):
 				print("moved from .Double to .Double")
-				
-			default:
-				print(touches)
-				fatalError("how'd we get to default?")
-				break
+				state = .Changed
+				let points = [firstTouch, secondTouch].map { $0.location }
+				stroke.temporaryPoints = points
 			}
+			self.delegate?.touchManager(self, didUpdateStroke: stroke)
 		}
 	}
 	
-	public func setUITouches(uiTouches: [UITouch]) {
+	public func setUITouches(uiTouches: Set<UITouch>) {
 		let touches: [Touch] = uiTouches.filter { touch in
-			return touch.phase != .Ended
+//			return touch.phase != .Ended
+			return true
 			}.map { Touch(uiTouch: $0) }
 		switch touches.count {
 		case 0:
-			self.phase = .None
+			self.amount = .None
 		case 1:
-			self.phase = .Single(touch: touches[0])
+			self.amount = .Single(touch: touches[0])
 		case 2:
-			self.phase = .Double(first: touches[0], second: touches[1])
+			self.amount = .Double(first: touches[0], second: touches[1])
 		default:
 			print("Not handling >2 touches at this time")
 		}

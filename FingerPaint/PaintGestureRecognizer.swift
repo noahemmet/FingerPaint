@@ -18,13 +18,15 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	public var anchor: Anchor = .None
 	public var paintDelegate: PaintGestureDelegate?
-	public var stroke: Stroke!
+//	public var stroke: Stroke = Stroke(points: [])
 //	private var touchPath: TouchPath!
 	public var touchManager = TouchManager()
 	
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
-		touchManager.setUITouches(Array(touches))
+		touchManager.setUITouches(touches)
+		self.state = touchManager.state
+		print("began: ", touches.count)
 		// TODO: Make sure touches are always the same order.
 //		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
 //		switch allTouches.count {
@@ -73,8 +75,9 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesMoved(touches, withEvent: event)
-		touchManager.setUITouches(Array(touches))
-		state = .Changed
+		touchManager.setUITouches(touches)
+		self.state = touchManager.state
+//		print("ended: ", touches.count)
 //		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
 //		switch allTouches.count {
 //		case 1:
@@ -92,7 +95,9 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesEnded(touches, withEvent: event)
-		touchManager.setUITouches(Array(touches))
+		touchManager.setUITouches(touches)
+		self.state = touchManager.state
+		print("ended: ", touches.count)
 //		switch touches.count {
 //		case 1:
 //			switch anchor {
@@ -130,6 +135,12 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 //		if touchPath.history.last?.isEmpty == true {
 //			touchPath = nil
 //		}
+	}
+	
+	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {
+		super.touchesCancelled(touches, withEvent: event)
+		touchManager.setUITouches(touches)
+		self.state = touchManager.state
 	}
 	
 	public override func shouldRequireFailureOfGestureRecognizer(otherGestureRecognizer: UIGestureRecognizer) -> Bool {
