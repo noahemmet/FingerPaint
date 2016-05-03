@@ -108,9 +108,9 @@ public class TouchManager {
 				stroke = Stroke(points: [])
 //				touches.insert(firstNewTouch)
 //				touches.insert(secondNewTouch)
-				let points = [firstNewTouch, secondNewTouch].map { $0.location }
 //				stroke = Stroke(touches: touches)
-				stroke.points = points
+				let points = [firstNewTouch, secondNewTouch].map { $0.location }
+				stroke.temporaryPoints = points
 				
 			case (from: .Single(let touch), to: .None):
 				print("ended from .Single to .None")
@@ -121,14 +121,14 @@ public class TouchManager {
 //				stroke.finishCurrentSegment()
 				
 			case (from: .Single, to: .Single(let newTouch)):
-				print("moved from .Single to .Single")
-				print(newTouch.location)
+//				print("moved from .Single to .Single")
+//				print(newTouch.location)
 				stroke.points.append(newTouch.location)
 				state = .Changed
 				// Don't need to update touches; should be the same
 				
 			case (from: .Single, to: .Double(let firstNewTouch, let secondNewTouch)):
-				print("moved from .Single to .Double")
+				print("changed from .Single to .Double")
 				state = .Changed
 //				assert(existingFirstTouch === firstNewTouch, "existingFirstTouch must equal firstNewTouch")
 				//				touches.insert(firstNewTouch)
@@ -154,7 +154,7 @@ public class TouchManager {
 				stroke.temporaryPoints = []
 				
 			case (from: .Double(_, _), to: .Double(let firstTouch, let secondTouch)):
-				print("moved from .Double to .Double")
+//				print("moved from .Double to .Double")
 				state = .Changed
 				let points = [firstTouch, secondTouch].map { $0.location }
 				stroke.temporaryPoints = points

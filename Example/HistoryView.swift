@@ -50,12 +50,12 @@ extension HistoryView: UICollectionViewDataSource, UICollectionViewDelegate {
 		let stroke = history.strokes[indexPath.row]
 		self.historyViewDelegate?.resetToStroke(stroke, atIndex: indexPath.row + 1)
 		self.history.resetToStroke(stroke, atIndex: indexPath.row + 1)
+		self.reloadSections(NSIndexSet(index: 0))
 //		let indexPaths = (indexPath.row ..< history.strokes.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-		self.performBatchUpdates(
-			{ 
-//				self.deleteItemsAtIndexPaths(indexPaths)
-				self.reloadSections(NSIndexSet(index: 0))
-			}, completion: nil)
+//		self.performBatchUpdates(
+//			{ 
+////				self.deleteItemsAtIndexPaths(indexPaths)
+//			}, completion: nil)
 	}
 }
 

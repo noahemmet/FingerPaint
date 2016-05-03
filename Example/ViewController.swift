@@ -35,13 +35,23 @@ class ViewController: UIViewController {
 		historyView.history = history
 		historyView.history.delegate = historyView
 		historyView.historyViewDelegate = self
-//		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
-//		view.addGestureRecognizer(tapGestureRecognizer)
+		
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
 //		tapGestureRecognizer.cancelsTouchesInView = true
+//		tapGestureRecognizer.delaysTouchesBegan = true
+		canvasView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	
 	func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-		print("tap")
+		for layer in shapeLayers.reverse() {
+			if let sublayer = layer.hitTest(layer.convertPoint(tapGestureRecognizer.locationInView(canvasView), toLayer: layer)) {
+				print("hit")
+			}
+		}
+		if let layer = canvasView.layer.hitTest(tapGestureRecognizer.locationInView(canvasView)) {
+//			layer.strokeColor = UIColor.brownColor().CGColor
+			layer
+		}
 	}
 	
 	func handlePaint(paintGestureRecognizer: PaintGestureRecognizer) {
@@ -100,15 +110,17 @@ class ViewController: UIViewController {
 
 
 extension ViewController: UIGestureRecognizerDelegate {
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-		
-		
-		if (touch.view != self.canvasView) { // accept only touchs on superview, not accept touchs on subviews
-			return false
-		}
-		return true
-
-	}
+//	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//		return true
+//	}
+//	
+//	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//		return false
+//	}
+	
+//	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//		return true
+//	}
 }
 
 extension ViewController: HistoryViewDelegate {

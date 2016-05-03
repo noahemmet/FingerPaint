@@ -163,10 +163,13 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesCancelled(touches, withEvent: event)
 		touchManager.setUITouches(touches)
-		self.state = touchManager.state
+		self.state = .Cancelled
 	}
 	
 	public override func shouldRequireFailureOfGestureRecognizer(otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-		return otherGestureRecognizer is UITapGestureRecognizer
+		if otherGestureRecognizer is UITapGestureRecognizer {
+			return true
+		}
+		return false
 	}
 }
