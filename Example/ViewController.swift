@@ -36,15 +36,15 @@ class ViewController: UIViewController {
 		historyView.history.delegate = historyView
 		historyView.historyViewDelegate = self
 		
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
+//		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleTap(_:)))
 //		tapGestureRecognizer.cancelsTouchesInView = true
 //		tapGestureRecognizer.delaysTouchesBegan = true
-		canvasView.addGestureRecognizer(tapGestureRecognizer)
+//		canvasView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	
 	func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
 		for layer in shapeLayers.reverse() {
-			if let sublayer = layer.hitTest(layer.convertPoint(tapGestureRecognizer.locationInView(canvasView), toLayer: layer)) {
+			if let _ = layer.hitTest(layer.convertPoint(tapGestureRecognizer.locationInView(canvasView), toLayer: layer)) {
 				print("hit")
 			}
 		}
@@ -93,10 +93,9 @@ class ViewController: UIViewController {
 			canvasView.layer.addSublayer(shapeLayer)
 		case .Changed:
 			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
-			
 		case .Ended:
 			historyView.history.appendStroke(paintGestureRecognizer.touchManager.stroke)
-			for shape in shapeLayers {
+			for _ in shapeLayers {
 //				shape.opacity -= 0.1
 //				if shape.opacity <= 0 {
 //					shape.removeFromSuperlayer()

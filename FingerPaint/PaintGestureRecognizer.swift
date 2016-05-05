@@ -16,7 +16,6 @@ public protocol PaintGestureDelegate {
 public class PaintGestureRecognizer: UIGestureRecognizer {
 	
 	
-	public var anchor: Anchor = .None
 	public var paintDelegate: PaintGestureDelegate?
 //	public var stroke: Stroke = Stroke(points: [])
 //	private var touchPath: TouchPath!
@@ -25,20 +24,19 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 	public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesBegan(touches, withEvent: event)
 		touchManager.addUITouches(touches)
-//		self.state = touchManager.state
-//		self.state = touchManager.state
-		if touchManager.touches.count == touches.count {
-			self.state = .Began
-		} else {
-			self.state = .Changed
-		}
+		self.state = touchManager.state
+//		if touchManager.touches.count == touches.count {
+//			self.state = .Began
+//		} else {
+//			self.state = .Changed
+//		}
 		print("began: ", touches.count)
 	}
 	
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
 		super.touchesMoved(touches, withEvent: event)
 		touchManager.addUITouches(touches)
-		self.state = .Changed
+		self.state = touchManager.state
 //		self.state = touchManager.state
 //		print("ended: ", touches.count)
 //		let allTouches = Array(touches).map { Touch(uiTouch: $0) }
@@ -66,12 +64,12 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 //		}
 		touchManager.removeUITouches(touches)
 		print("ended: ", touchManager.touches.count)
-		
-		if touchManager.touches.isEmpty {
-			state = .Ended
-		} else {
-			state = .Changed
-		}
+		self.state = touchManager.state
+//		if touchManager.touches.isEmpty {
+//			state = .Ended
+//		} else {
+//			state = .Changed
+//		}
 	}
 	
 	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent) {

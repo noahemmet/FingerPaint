@@ -44,19 +44,22 @@ public class Stroke {
 			for point in points.dropFirst(1) {
 				path.addLineToPoint(point)
 			}
+		} else {
+			print("no points")
 		}
-		if temporaryPoints.count > 0 {
-			let dropFirst: Int
-			if points.count == 0 {
-				path.moveToPoint(temporaryPoints[0])
-				dropFirst = 1
-			} else {
-				dropFirst = 0
-			}
-			for point in temporaryPoints.dropFirst(dropFirst) {
-				path.addLineToPoint(point)
-			}
-		}
+//		print(points)
+//		if temporaryPoints.count > 0 {
+//			let dropFirst: Int
+//			if points.count == 0 {
+//				path.moveToPoint(temporaryPoints[0])
+//				dropFirst = 1
+//			} else {
+//				dropFirst = 0
+//			}
+//			for point in temporaryPoints.dropFirst(dropFirst) {
+//				path.addLineToPoint(point)
+//			}
+//		}
 		return path
 	}
 }
