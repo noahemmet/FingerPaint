@@ -10,6 +10,7 @@
 		86800FCE1CD331150074DD27 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86800FCD1CD331150074DD27 /* Stroke.swift */; };
 		86BEC7911CD6FBCF00CE17EC /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEC7901CD6FBCF00CE17EC /* History.swift */; };
 		86BEC7931CD6FD9900CE17EC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BEC7921CD6FD9900CE17EC /* HistoryView.swift */; };
+		86DCB4521CDAE2D70075DA48 /* TouchManagerTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86DCB4511CDAE2D70075DA48 /* TouchManagerTestCase.swift */; };
 		86ECB1321CC86AEA00E5259D /* FingerPaint.h in Headers */ = {isa = PBXBuildFile; fileRef = 86ECB1311CC86AEA00E5259D /* FingerPaint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86ECB1391CC86AEA00E5259D /* FingerPaint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; };
 		86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */; };
@@ -69,6 +70,7 @@
 		86800FCD1CD331150074DD27 /* Stroke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
 		86BEC7901CD6FBCF00CE17EC /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		86BEC7921CD6FD9900CE17EC /* HistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		86DCB4511CDAE2D70075DA48 /* TouchManagerTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchManagerTestCase.swift; sourceTree = "<group>"; };
 		86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FingerPaint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86ECB1311CC86AEA00E5259D /* FingerPaint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerPaint.h; sourceTree = "<group>"; };
 		86ECB1331CC86AEA00E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */,
 				86ECB13F1CC86AEA00E5259D /* Info.plist */,
+				86DCB4511CDAE2D70075DA48 /* TouchManagerTestCase.swift */,
 			);
 			path = FingerPaintTests;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */,
+				86DCB4521CDAE2D70075DA48 /* TouchManagerTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

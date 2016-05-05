@@ -41,11 +41,19 @@ public class Stroke {
 		let path = UIBezierPath()
 		if points.count > 0 {
 			path.moveToPoint(points[0])
-			for point in points {
+			for point in points.dropFirst(1) {
 				path.addLineToPoint(point)
 			}
-			
-			for point in temporaryPoints {
+		}
+		if temporaryPoints.count > 0 {
+			let dropFirst: Int
+			if points.count == 0 {
+				path.moveToPoint(temporaryPoints[0])
+				dropFirst = 1
+			} else {
+				dropFirst = 0
+			}
+			for point in temporaryPoints.dropFirst(dropFirst) {
 				path.addLineToPoint(point)
 			}
 		}

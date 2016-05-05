@@ -12,18 +12,24 @@ public class Touch: Hashable {
 	
 	public var location: CGPoint
 	public weak var uiTouch: UITouch?
+	public let uuid: String
 	public init(uiTouch: UITouch) {
 		self.location = uiTouch.locationInView(uiTouch.view)
 		self.uiTouch = uiTouch
-		print(location)
+		self.uuid = String(uiTouch) 
 	}
 	
 	public init(location: CGPoint) {
 		self.location = location
+		self.uuid = NSUUID().UUIDString
 	}
 	
 	public var hashValue: Int {
-		return self.uiTouch?.hashValue ?? 0
+		if let uiTouch = uiTouch {
+			return uiTouch.hashValue
+		} else {
+			return uuid.hashValue
+		}
 	}
 	
 	public func updateLocation() {
@@ -34,7 +40,11 @@ public class Touch: Hashable {
 }
 
 public func ==(lhs: Touch, rhs: Touch) -> Bool {
-	return lhs.uiTouch === rhs.uiTouch
+	if let lhsUITouch = lhs.uiTouch, let rhsUITouch = rhs.uiTouch {
+		return lhsUITouch === rhsUITouch
+	} else {
+		return lhs.uuid == rhs.uuid
+	}
 }
 
 
@@ -80,9 +90,9 @@ public protocol TouchManagerDelegate: class {
 
 public class TouchManager {
 	
-	public var stroke: Stroke = Stroke(points: [])
-	public var touches: Set<Touch> = []
-	public var state: UIGestureRecognizerState = .Possible
+	public private(set) var stroke: Stroke = Stroke(points: [])
+	public private(set) var touches: Set<Touch> = []
+	public private(set) var state: UIGestureRecognizerState = .Possible
 	
 	public weak var delegate: TouchManagerDelegate?
 	
@@ -131,8 +141,8 @@ public class TouchManager {
 				print("changed from .Single to .Double")
 				state = .Changed
 //				assert(existingFirstTouch === firstNewTouch, "existingFirstTouch must equal firstNewTouch")
-				//				touches.insert(firstNewTouch)
 				//				touches.insert(secondNewTouch)
+//				touches.insert(firstNewTouch)
 				stroke.temporaryPoints = touches.map { $0.location }
 				
 			case (from: .Double(let firstTouch, let secondTouch), to: .None):
@@ -140,8 +150,9 @@ public class TouchManager {
 				state = .Ended
 //				touches.remove(firstTouch)
 //				touches.remove(secondTouch)
+//				stroke.points.appendContentsOf(touches.map { $0.location })
+				stroke.points.appendContentsOf(stroke.temporaryPoints)
 				stroke.temporaryPoints = []
-				stroke.points.appendContentsOf(touches.map { $0.location })
 				self.delegate?.touchManager(self, didUpdateStroke: stroke)
 				
 			case (from: .Double(let oldFirstTouch, let oldSecondTouch), to: .Single(let newFirstTouch)):
@@ -151,7 +162,7 @@ public class TouchManager {
 //				touches.remove(oldSecondTouch)
 //				touches.insert(newFirstTouch)
 				stroke.points.appendContentsOf(stroke.temporaryPoints)
-				stroke.temporaryPoints = []
+//				stroke.temporaryPoints = []
 				
 			case (from: .Double(_, _), to: .Double(let firstTouch, let secondTouch)):
 //				print("moved from .Double to .Double")
@@ -163,8 +174,20 @@ public class TouchManager {
 		}
 	}
 	
-	public func setTouches() {
-		for touch in self.touches {
+	public func removeTouches(touches: Set<Touch>) {
+		for touch in touches {
+			self.touches.remove(touch)
+		}
+		self.stroke = Stroke(points: [])
+	}
+	
+	public func addTouches(touches: Set<Touch>) {
+		if self.touches.count == 0 {
+			state = .Began
+		}
+		
+		for touch in touches {
+			self.touches.insert(touch)
 			touch.updateLocation()
 		}
 		
@@ -181,8 +204,11 @@ public class TouchManager {
 		}
 	}
 	
-	public func setUITouches(uiTouches: Set<UITouch>) {
-//		self.setTouches(Set(uiTouches.map { Touch(uiTouch: $0) }))
-		self.setTouches()
+	public func removeUITouches(uiTouches: Set<UITouch>) {
+		self.removeTouches(Set(uiTouches.map { Touch(uiTouch: $0) }))
+	}
+	
+	public func addUITouches(uiTouches: Set<UITouch>) {
+		self.addTouches(Set(uiTouches.map { Touch(uiTouch: $0) }))
 	}
 }
