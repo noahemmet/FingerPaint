@@ -84,9 +84,15 @@ public class TouchManager {
 				state = .Ended
 				
 			case (from: 1, to: 1):
-//				print("moved from .Single to .Single")
+				print("moved from .Single to .Single")
 				state = .Changed
-				stroke.points.append(newLocations[0])
+				if let lastPoint = stroke.points.last {
+					let newLocation = newLocations[0]
+					let distance = lastPoint.distanceTo(point: newLocation)
+					if distance > 4 {
+						stroke.points.append(newLocations[0])
+					}
+				}
 				// Don't need to update touches; should be the same
 				
 			case (from: 1, to: 2):
