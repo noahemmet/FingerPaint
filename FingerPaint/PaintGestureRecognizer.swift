@@ -63,7 +63,7 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 //			touchManager.touches.remove(Touch(uiTouch: touch))
 //		}
 		touchManager.removeUITouches(touches)
-		print("ended: ", touchManager.touches.count)
+		print("ended: ", touchManager.touchNodes.last?.count)
 		self.state = touchManager.state
 //		if touchManager.touches.isEmpty {
 //			state = .Ended
