@@ -163,6 +163,17 @@ public class TouchManager {
 		}
 	}
 	
+	public var bezierPath: UIBezierPath {
+		let bezierPath = UIBezierPath()
+		bezierPath.moveToPoint(touchNodes.first!.first!.location)
+		for touchNode in touchNodes {
+			for touch in touchNode {
+				bezierPath.addLineToPoint(touch.location)
+			}
+		}
+		return bezierPath
+	}
+	
 	public func removeTouches(removedTouches: Set<Touch>) {
 		if var nextTouches = touchNodes.last {
 			for touch in removedTouches {

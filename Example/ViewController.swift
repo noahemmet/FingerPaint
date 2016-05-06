@@ -80,7 +80,8 @@ class ViewController: UIViewController {
 		switch paintGestureRecognizer.state {
 		case .Began:
 			let shapeLayer = CAShapeLayer()
-			shapeLayer.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
+//			shapeLayer.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
+			shapeLayer.path = paintGestureRecognizer.touchManager.bezierPath.CGPath
 			shapeLayer.strokeColor = colors[colorIndex].CGColor
 			if 0..<colors.count-1 ~= colorIndex {
 				colorIndex += 1
@@ -92,6 +93,7 @@ class ViewController: UIViewController {
 			shapeLayers.append(shapeLayer)
 			canvasView.layer.addSublayer(shapeLayer)
 		case .Changed:
+			shapeLayers.last?.path = paintGestureRecognizer.touchManager.bezierPath.CGPath
 			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
 		case .Ended:
 			historyView.history.appendStroke(paintGestureRecognizer.touchManager.stroke)
