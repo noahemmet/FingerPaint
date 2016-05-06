@@ -15,7 +15,6 @@ public protocol PaintGestureDelegate {
 
 public class PaintGestureRecognizer: UIGestureRecognizer {
 	
-	
 	public var paintDelegate: PaintGestureDelegate?
 //	public var stroke: Stroke = Stroke(points: [])
 //	private var touchPath: TouchPath!

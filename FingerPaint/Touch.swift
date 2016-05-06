@@ -18,7 +18,7 @@ public enum PointNode {
 	indirect case Node(point: CGPoint, next: PointNode, connection: PointConnection)
 }
 
-public class Touch: Hashable {
+public struct Touch: Hashable {
 	
 	public var location: CGPoint
 	public weak var uiTouch: UITouch?
@@ -42,7 +42,7 @@ public class Touch: Hashable {
 		}
 	}
 	
-	public func updateLocation() {
+	public mutating func updateLocation() {
 		if let uiTouch = uiTouch {
 			self.location = uiTouch.locationInView(uiTouch.view)
 		}
@@ -75,9 +75,9 @@ public class TouchManager {
 	private func updateTouchNodes(previous previous: Set<Touch>, next: Set<Touch>) {
 		
 		// update location?
-		for touch in touchNodes.flatten() {
-			touch.updateLocation()
-		}
+//		for touch in touchNodes.flatten() {
+//			touch.updateLocation()
+//		}
 		let previousTouches = previous
 		let newTouches = next
 		let diffCount = (from: previousTouches.count, to: newTouches.count)
@@ -147,11 +147,13 @@ public class TouchManager {
 		case (from: 2, to: 2):
 			//				print("moved from .Double to .Double")
 			state = .Changed
+			touchNodes.removeLast()
+			touchNodes.append(next)
 			//				touchNodes.removel
 			//				if anchors.count == 1 {
 			//					print("1 anchor ", anchors[0].location)
-			stroke.points.removeLast(2)
-			stroke.points.appendContentsOf(newTouches.map { $0.location } )
+//			stroke.points.removeLast(2)
+//			stroke.points.appendContentsOf(newTouches.map { $0.location } )
 			//				} else if anchors.count == 2 {
 			//					stroke.points.removeLast(2)
 			//					stroke.points.appendContentsOf(newLocations)

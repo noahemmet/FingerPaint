@@ -94,7 +94,7 @@ class ViewController: UIViewController {
 			canvasView.layer.addSublayer(shapeLayer)
 		case .Changed:
 			shapeLayers.last?.path = paintGestureRecognizer.touchManager.bezierPath.CGPath
-			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
+//			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
 		case .Ended:
 			historyView.history.appendStroke(paintGestureRecognizer.touchManager.stroke)
 			for _ in shapeLayers {
