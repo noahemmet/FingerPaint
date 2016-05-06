@@ -8,6 +8,16 @@
 
 import Foundation
 
+public enum PointConnection {
+	case Curve
+	case Line
+}
+
+public enum PointNode {
+	case End
+	indirect case Node(point: CGPoint, next: PointNode, connection: PointConnection)
+}
+
 public class Touch: Hashable {
 	
 	public var location: CGPoint
@@ -54,6 +64,7 @@ public protocol TouchManagerDelegate: class {
 public class TouchManager {
 	
 	public private(set) var stroke: Stroke = Stroke(points: [])
+	public private(set) var anchors: [Touch] = []
 	public private(set) var touches: Set<Touch> = [] {
 		didSet {
 			// update location?
@@ -66,27 +77,33 @@ public class TouchManager {
 			switch diffCount {
 			case (from: 0, to: 0):
 				fatalError("Beginning from .None to .None is illegal")
-				break
+				
 			case (from: 0, to: 1):
 				print("began from .None to .Single")
 				state = .Began
 				let newTouch = diffTouches[0]
 				stroke = Stroke(point: newTouch.location)
+//				anchors = [newTouch]
 				
 			case (from: 0, to: 2):
 				print("began from .None to .Double")
 				state = .Began
 				stroke = Stroke(points: newLocations)
-//				stroke.temporaryPoints = points
+				anchors = diffTouches
 				
 			case (from: 1, to: 0):
 				print("ended from .Single to .None")
 				state = .Ended
+				anchors = []
 				
 			case (from: 1, to: 1):
 				print("moved from .Single to .Single")
 				state = .Changed
-				if let lastPoint = stroke.points.last {
+				
+				if let anchor = anchors.first {
+					print("has anchor")
+					stroke.points.append(newLocations[0])
+				} else if let lastPoint = stroke.points.last {
 					let newLocation = newLocations[0]
 					let distance = lastPoint.distanceTo(point: newLocation)
 					if distance > 4 {
@@ -95,27 +112,40 @@ public class TouchManager {
 				}
 				// Don't need to update touches; should be the same
 				
+				
 			case (from: 1, to: 2):
 				print("changed from .Single to .Double")
 				state = .Changed
 				let newTouch = diffTouches[0]
 				stroke.points.append(newTouch.location)
+				anchors = Array(touches)
 				
 			case (from: 2, to: 0):
 				print("ended from .Double to .None")
 				state = .Ended
 //				stroke.points = 
+				anchors = []
 				
 			case (from: 2, to: 1):
 				print("changed from .Double to .Single")
 				state = .Changed
 //				stroke.points.appendContentsOf(oldValue.map { $0.location })
+				if let anchor = anchors.first {
+					
+				}
 				
 			case (from: 2, to: 2):
 				//				print("moved from .Double to .Double")
 				state = .Changed
-				stroke.points.removeLast(2)
-				stroke.points.appendContentsOf(newLocations)
+				if anchors.count == 1 {
+					print("1 anchor ", anchors[0].location)
+//					stroke.points.removeLast(2)
+//					stroke.points.append(newLocations.last!)
+				} else if anchors.count == 2 {
+					stroke.points.removeLast(2)
+					stroke.points.appendContentsOf(newLocations)
+				}
+				
 			default:
 				print("Not handling >2 touches")
 //				fatalError("Not handling >2 touches")
