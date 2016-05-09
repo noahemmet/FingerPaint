@@ -55,6 +55,7 @@ class ViewController: UIViewController {
 	}
 	
 	func handlePaint(paintGestureRecognizer: PaintGestureRecognizer) {
+		return 
 //		shapeLayer = CAShapeLayer()
 		
 //		shapeLayer.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
