@@ -29,9 +29,9 @@ public struct Touch: Hashable {
 		self.uuid = String(uiTouch) 
 	}
 	
-	public init(location: CGPoint) {
+	public init(location: CGPoint, uuid: String = NSUUID().UUIDString) {
 		self.location = location
-		self.uuid = NSUUID().UUIDString
+		self.uuid = uuid
 	}
 	
 	public var hashValue: Int {
@@ -39,12 +39,6 @@ public struct Touch: Hashable {
 			return uiTouch.hashValue
 		} else {
 			return uuid.hashValue
-		}
-	}
-	
-	public mutating func updateLocation() {
-		if let uiTouch = uiTouch {
-			self.location = uiTouch.locationInView(uiTouch.view)
 		}
 	}
 }
@@ -80,6 +74,7 @@ public class TouchManager {
 //		}
 		let previousTouches = previous
 		let newTouches = next
+		let diffTouches = newTouches.exclusiveOr(previousTouches)
 		let diffCount = (from: previousTouches.count, to: newTouches.count)
 		switch diffCount {
 		case (from: 0, to: 0):
@@ -89,45 +84,40 @@ public class TouchManager {
 			print("began from .None to .Single")
 			state = .Began
 			let newTouch = newTouches.first!
-			stroke = Stroke(point: newTouch.location)
 			touchNodes = [next]
+//			anchors = Array(next)
 			
 		case (from: 0, to: 2):
 			print("began from .None to .Double")
 			state = .Began
 			touchNodes = [next]
-			//				stroke = Stroke(points: newLocations)
-			//				anchors = diffTouches
+			anchors = Array(next)
 			
 		case (from: 1, to: 0):
 			print("ended from .Single to .None")
 			state = .Ended
 			touchNodes = []
+			anchors = []
 			
 		case (from: 1, to: 1):
-			print("moved from .Single to .Single")
+//			print("moved from .Single to .Single")
 			state = .Changed
 			let newTouch = newTouches.first!
 			let newLocation = newTouch.location
-			stroke.points.append(newLocation)
-			touchNodes.append(next)
-			//				if let anchor = anchors.first {
-			//					print("has anchor")
-			//					stroke.points.append(newLocations[0])
-			//				} else if let lastPoint = stroke.points.last {
-			//					if distance > 4 {
-			//					}
-			//				}
-			// Don't need to update touches; should be the same
-			touchNodes.append(next)
+			if anchors.count == 1 {
+				if anchors[0] == newTouch {
+					print("matched anchor1 0")
+					touchNodes.append(next)
+				}
+			} else {
+				touchNodes.append(next)
+			}
 			
 		case (from: 1, to: 2):
 			print("changed from .Single to .Double")
 			state = .Changed
-			//				let newTouch = diffTouches[0]
-			//				stroke.points.append(newTouch.location)
-			//				anchors = Array(touches)
 			touchNodes.append(next)
+			anchors = Array(diffTouches)
 			
 		case (from: 2, to: 0):
 			print("ended from .Double to .None")
@@ -139,25 +129,13 @@ public class TouchManager {
 			print("changed from .Double to .Single")
 			state = .Changed
 			touchNodes.append(next)
-			//				stroke.points.appendContentsOf(oldValue.map { $0.location })
-			//				if let anchor = anchors.first {
-			//					
-			//				}
 			
 		case (from: 2, to: 2):
 			//				print("moved from .Double to .Double")
 			state = .Changed
 			touchNodes.removeLast()
 			touchNodes.append(next)
-			//				touchNodes.removel
-			//				if anchors.count == 1 {
-			//					print("1 anchor ", anchors[0].location)
-//			stroke.points.removeLast(2)
-//			stroke.points.appendContentsOf(newTouches.map { $0.location } )
-			//				} else if anchors.count == 2 {
-			//					stroke.points.removeLast(2)
-			//					stroke.points.appendContentsOf(newLocations)
-			//				}
+			
 			
 		default:
 			print("Not handling >2 touches")

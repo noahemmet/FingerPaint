@@ -45,7 +45,7 @@ public class Stroke {
 				path.addLineToPoint(point)
 			}
 		} else {
-			print("no points")
+//			print("no points")
 		}
 //		print(points)
 //		if temporaryPoints.count > 0 {
