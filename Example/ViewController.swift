@@ -20,7 +20,7 @@ class ViewController: UIViewController {
 	
 	var shapeLayers: [CAShapeLayer] = []
 	var shapeLayer: CAShapeLayer = CAShapeLayer()
-	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
+//	let colors: [UIColor] = [.purpleColor(), .orangeColor(), .blueColor(), .greenColor(), .redColor()]
 	var colorIndex = 0
 	var points: [CGPoint] = []
 	
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
 			print(paintGestureRecognizer.touchPath.bezierPath)
 //			shapeLayers.last?.path = paintGestureRecognizer.touchManager.stroke.bezierPath.CGPath
 		case .Ended:
-			historyView.history.appendStroke(paintGestureRecognizer.touchManager.stroke)
+			historyView.history.appendStroke(paintGestureRecognizer.touchPath.stroke)
 		default:
 			break
 		}

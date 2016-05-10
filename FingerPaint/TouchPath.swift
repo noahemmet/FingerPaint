@@ -82,6 +82,8 @@ extension TouchPath {
 			case (from: 0, to: 2):
 				anchors = nextFrame.touches
 				points.appendContentsOf(nextFramePoints)
+			case (from: 1, to: 0):
+				points.appendContentsOf(nextFramePoints)
 			case (from: 1, to: 1):
 				points.appendContentsOf(nextFramePoints)
 			case (from: 1, to: 2):
@@ -118,6 +120,11 @@ extension TouchPath {
 			bezierPath.addLineToPoint(point)
 		}
 		return bezierPath
+	}
+	
+	public var stroke: Stroke {
+		let stroke = Stroke(points: validPoints)
+		return stroke
 	}
 }
 

@@ -16,6 +16,7 @@
 		86E9B7BD1CE062D2008EF61F /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E9B7BC1CE062D2008EF61F /* ArrayExtensions.swift */; };
 		86E9B7BF1CE07639008EF61F /* TouchFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E9B7BE1CE07639008EF61F /* TouchFrame.swift */; };
 		86E9B7C11CE07685008EF61F /* TouchPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E9B7C01CE07685008EF61F /* TouchPath.swift */; };
+		86E9B7C31CE1C0A0008EF61F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E9B7C21CE1C0A0008EF61F /* Colors.swift */; };
 		86ECB1321CC86AEA00E5259D /* FingerPaint.h in Headers */ = {isa = PBXBuildFile; fileRef = 86ECB1311CC86AEA00E5259D /* FingerPaint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86ECB1391CC86AEA00E5259D /* FingerPaint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */; };
 		86ECB13E1CC86AEA00E5259D /* FingerPaintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB13D1CC86AEA00E5259D /* FingerPaintTests.swift */; };
@@ -81,6 +82,7 @@
 		86E9B7BC1CE062D2008EF61F /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		86E9B7BE1CE07639008EF61F /* TouchFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchFrame.swift; sourceTree = "<group>"; };
 		86E9B7C01CE07685008EF61F /* TouchPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchPath.swift; sourceTree = "<group>"; };
+		86E9B7C21CE1C0A0008EF61F /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		86ECB12E1CC86AEA00E5259D /* FingerPaint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FingerPaint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86ECB1311CC86AEA00E5259D /* FingerPaint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerPaint.h; sourceTree = "<group>"; };
 		86ECB1331CC86AEA00E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 			children = (
 				86ECB14E1CC86C9300E5259D /* AppDelegate.swift */,
 				86ECB1501CC86C9300E5259D /* ViewController.swift */,
+				86E9B7C21CE1C0A0008EF61F /* Colors.swift */,
 				86BEC7921CD6FD9900CE17EC /* HistoryView.swift */,
 				86ECB1521CC86C9300E5259D /* Main.storyboard */,
 				86ECB1551CC86C9300E5259D /* Assets.xcassets */,
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				86ECB1511CC86C9300E5259D /* ViewController.swift in Sources */,
+				86E9B7C31CE1C0A0008EF61F /* Colors.swift in Sources */,
 				86BEC7931CD6FD9900CE17EC /* HistoryView.swift in Sources */,
 				86ECB14F1CC86C9300E5259D /* AppDelegate.swift in Sources */,
 			);
