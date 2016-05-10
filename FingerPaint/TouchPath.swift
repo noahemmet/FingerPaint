@@ -9,9 +9,9 @@
 import Foundation
 
 public class TouchPath {
-	public private(set) var frames: [TouchFrame] = []
+	public private(set) var frames: [TouchFrame]
 	public var gestureState: UIGestureRecognizerState {
-		if frames.last?.touches.count == 0 && frames.count > 0 {
+		if frames.count == 1 {
 			return .Began
 		} else if frames.last?.touches.count == 0 {
 			return .Ended
@@ -20,6 +20,11 @@ public class TouchPath {
 		} else {
 			return .Possible
 		}
+	}
+	
+	public init() {
+		let emptyTouchFrame = TouchFrame(addTouches: [])
+		frames = [emptyTouchFrame]
 	}
 	
 	public func appendTouchFrame(touchFrame: TouchFrame) {
@@ -54,5 +59,70 @@ public class TouchPath {
 	public func removeTouches(uiTouches: Set<UITouch>) {
 		let touchFrame = TouchFrame(previous: frames.last!, removeTouches: uiTouches)
 		appendTouchFrame(touchFrame)
+	}
+}
+
+extension TouchPath {
+	public var validPoints: [CGPoint] {
+		guard frames.count > 1 else {
+			return []
+		}
+		var points: [CGPoint] = []
+		var anchors: [Touch] = []
+		
+		for (index, frame) in frames.enumerate() {
+			guard let nextFrame = frames.elementAtIndex(index+1) else {
+				continue
+			}
+			let nextFramePoints = nextFrame.touches.map { $0.location }
+			let countDiff = (from: frame.touches.count, to: nextFrame.touches.count)
+			switch countDiff {
+			case (from: 0, to: 1):
+				points.appendContentsOf(nextFramePoints)
+			case (from: 0, to: 2):
+				anchors = nextFrame.touches
+				points.appendContentsOf(nextFramePoints)
+			case (from: 1, to: 1):
+				points.appendContentsOf(nextFramePoints)
+			case (from: 1, to: 2):
+				anchors = [frame.touches[0]]
+			case (from: 2, to: 0):
+				anchors = []
+			case (from: 2, to: 1):
+				points.appendContentsOf(nextFramePoints)
+				anchors = []
+			case (from: 2, to: 2):
+				if anchors.count == 1 {
+					points.removeAtIndex(points.count-2)
+					points.append(nextFramePoints.last!)
+				} else {
+					points.removeLast(2)
+					points.appendContentsOf(nextFramePoints)
+				}
+			default:
+				fatalError("todo")
+			}
+		}
+		return points
+	}
+	
+	public var bezierPath: UIBezierPath? {
+		guard frames.count > 1 else {
+			return nil
+		}
+		let bezierPath = UIBezierPath()
+		let points = validPoints
+		bezierPath.moveToPoint(points.first!)
+		print("Count: ", frames.count)
+		for point in points {
+			bezierPath.addLineToPoint(point)
+		}
+		return bezierPath
+	}
+}
+
+extension TouchPath: CustomStringConvertible {
+	public var description: String {
+		return "Frame count: " + String(frames.count)
 	}
 }

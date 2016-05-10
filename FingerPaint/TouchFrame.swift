@@ -56,16 +56,10 @@ public struct TouchFrame {
 		let touches = removeTouches.map { Touch(uiTouch: $0) }
 		self = TouchFrame(previous: previous, removeTouches: touches)
 	}
-	
-	private static func filterTouches(touches: [Touch], uiTouches: Set<UITouch>) -> [Touch] {
-		var filteredTouches: [Touch] = []
-		for uiTouch in uiTouches {
-			for touch in touches {
-				if uiTouch == touch.uiTouch {
-					filteredTouches.append(touch)
-				}
-			}
-		}
-		return filteredTouches
+}
+
+extension TouchFrame: CustomStringConvertible {
+	public var description: String {
+		return "Touch count: " + String(touches.count)
 	}
 }

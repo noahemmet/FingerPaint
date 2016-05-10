@@ -37,6 +37,10 @@ public class Stroke {
 		self.points = touches.map { $0.location }
 	}
 	
+	public init(touchPath: TouchPath) {
+		
+	}
+	
 	public var bezierPath: UIBezierPath {
 		let path = UIBezierPath()
 		if points.count > 0 {
