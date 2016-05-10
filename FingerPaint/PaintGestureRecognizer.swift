@@ -28,7 +28,7 @@ public class PaintGestureRecognizer: UIGestureRecognizer {
 		}
 		touchPath.addTouches(touches)
 		self.state = touchPath.gestureState
-		print("began: ", touches.count)
+		print("began: ", touchPath.frames.last?.touches.count)
 	}
 	
 	override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {

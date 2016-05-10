@@ -80,10 +80,11 @@ extension TouchPath {
 			case (from: 0, to: 1):
 				points.appendContentsOf(nextFramePoints)
 			case (from: 0, to: 2):
-				anchors = nextFrame.touches
 				points.appendContentsOf(nextFramePoints)
+				anchors = nextFrame.touches
 			case (from: 1, to: 0):
 				points.appendContentsOf(nextFramePoints)
+				anchors = []
 			case (from: 1, to: 1):
 				points.appendContentsOf(nextFramePoints)
 			case (from: 1, to: 2):
@@ -92,12 +93,12 @@ extension TouchPath {
 				anchors = []
 			case (from: 2, to: 1):
 				points.appendContentsOf(nextFramePoints)
-				anchors = []
+//				anchors = []
 			case (from: 2, to: 2):
 				if anchors.count == 1 {
 					points.removeAtIndex(points.count-2)
 					points.append(nextFramePoints.last!)
-				} else {
+				} else if anchors.count == 2 {
 					points.removeLast(2)
 					points.appendContentsOf(nextFramePoints)
 				}
@@ -115,7 +116,6 @@ extension TouchPath {
 		let bezierPath = UIBezierPath()
 		let points = validPoints
 		bezierPath.moveToPoint(points.first!)
-		print("Count: ", frames.count)
 		for point in points {
 			bezierPath.addLineToPoint(point)
 		}

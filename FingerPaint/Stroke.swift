@@ -8,22 +8,11 @@
 
 import Foundation
 
-public enum TemporarySegment {
-	case Line(pointOne: CGPoint, pointTwo: CGPoint)
-}
-
-public enum Segment {
-	// FreeForm?
-	case Free(points: [CGPoint])
-	case Line(pointOne: CGPoint, pointTwo: CGPoint)
-	case Lines(points: [CGPoint])
-}
-
-/// Perhaps this always represents an in-progress `[Segment]`, 
-/// with the non-mutable variant simply a `[Segment]` itself.
 public class Stroke {
 	public var points: [CGPoint] = []
 	public var temporaryPoints: [CGPoint] = []
+	
+	public var color: UIColor?
 	
 	public init(points: [CGPoint]) {
 		self.points = points
@@ -51,19 +40,6 @@ public class Stroke {
 		} else {
 //			print("no points")
 		}
-//		print(points)
-//		if temporaryPoints.count > 0 {
-//			let dropFirst: Int
-//			if points.count == 0 {
-//				path.moveToPoint(temporaryPoints[0])
-//				dropFirst = 1
-//			} else {
-//				dropFirst = 0
-//			}
-//			for point in temporaryPoints.dropFirst(dropFirst) {
-//				path.addLineToPoint(point)
-//			}
-//		}
 		return path
 	}
 }
@@ -76,7 +52,7 @@ extension Stroke {
 		let transformedPath = CGPathCreateCopyByTransformingPath(bezierPath.CGPath, &affineTransform)
 		shapeLayer.path = transformedPath
 		shapeLayer.fillColor = UIColor.clearColor().CGColor
-		shapeLayer.strokeColor = UIColor.blackColor().CGColor
+		shapeLayer.strokeColor = color?.CGColor ?? UIColor.blackColor().CGColor
 		shapeLayer.lineWidth = 8 * scale
 		return shapeLayer
 	}
