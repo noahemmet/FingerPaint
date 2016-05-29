@@ -2,11 +2,19 @@
 
 extension UIBezierPath {
     
-    convenience init?(catmullRomPoints: [CGPoint], closed: Bool, alpha: CGFloat) {
+    convenience init(catmullRomPoints: [CGPoint], closed: Bool, alpha: CGFloat) {
         self.init()
         
-        if catmullRomPoints.count < 4 {
-            return nil
+        guard catmullRomPoints.count >= 4 else {
+			if catmullRomPoints.count > 0 {
+				self.moveToPoint(catmullRomPoints[0])
+				for point in catmullRomPoints.dropFirst(1) {
+					self.addLineToPoint(point)
+				}
+			} else {
+				print("no points")
+			}
+			return
         }
         
         let startIndex = closed ? 0 : 1
