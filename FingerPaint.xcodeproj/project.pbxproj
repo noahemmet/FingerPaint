@@ -27,6 +27,8 @@
 		86ECB1591CC86C9300E5259D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86ECB1571CC86C9300E5259D /* LaunchScreen.storyboard */; };
 		86ECB1641CC86C9300E5259D /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB1631CC86C9300E5259D /* ExampleTests.swift */; };
 		86ECB16E1CC86CA200E5259D /* Touch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ECB16D1CC86CA200E5259D /* Touch.swift */; };
+		86F0D56C1CFA7FE300EADF9B /* CatmullRom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F0D56A1CFA7FE300EADF9B /* CatmullRom.swift */; };
+		86F0D56D1CFA7FE300EADF9B /* CGPoint+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F0D56B1CFA7FE300EADF9B /* CGPoint+Utilities.swift */; };
 		86FC22EB1CCD6F71008945C7 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22E91CCD6F71008945C7 /* Shape.swift */; };
 		86FC22EC1CCD6F71008945C7 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22EA1CCD6F71008945C7 /* Tool.swift */; };
 		86FC22F01CCD76C1008945C7 /* PaintGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FC22EF1CCD76C1008945C7 /* PaintGestureRecognizer.swift */; };
@@ -100,6 +102,8 @@
 		86ECB1631CC86C9300E5259D /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		86ECB1651CC86C9300E5259D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86ECB16D1CC86CA200E5259D /* Touch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Touch.swift; sourceTree = "<group>"; };
+		86F0D56A1CFA7FE300EADF9B /* CatmullRom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatmullRom.swift; sourceTree = "<group>"; };
+		86F0D56B1CFA7FE300EADF9B /* CGPoint+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Utilities.swift"; sourceTree = "<group>"; };
 		86FC22E91CCD6F71008945C7 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		86FC22EA1CCD6F71008945C7 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		86FC22EF1CCD76C1008945C7 /* PaintGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				86ECB16C1CC86C9A00E5259D /* Classes */,
+				86F0D56E1CFA7FE900EADF9B /* Catmull-Rom */,
 				86ECB1311CC86AEA00E5259D /* FingerPaint.h */,
 				86ECB1331CC86AEA00E5259D /* Info.plist */,
 			);
@@ -221,6 +226,15 @@
 				86E9B7BC1CE062D2008EF61F /* ArrayExtensions.swift */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		86F0D56E1CFA7FE900EADF9B /* Catmull-Rom */ = {
+			isa = PBXGroup;
+			children = (
+				86F0D56A1CFA7FE300EADF9B /* CatmullRom.swift */,
+				86F0D56B1CFA7FE300EADF9B /* CGPoint+Utilities.swift */,
+			);
+			name = "Catmull-Rom";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +412,7 @@
 				86BEC7911CD6FBCF00CE17EC /* History.swift in Sources */,
 				86E9B7BF1CE07639008EF61F /* TouchFrame.swift in Sources */,
 				86FC22EC1CCD6F71008945C7 /* Tool.swift in Sources */,
+				86F0D56C1CFA7FE300EADF9B /* CatmullRom.swift in Sources */,
 				86800FCE1CD331150074DD27 /* Stroke.swift in Sources */,
 				86E9B7B91CE058EA008EF61F /* TouchManager.swift in Sources */,
 				86E9B7C11CE07685008EF61F /* TouchPath.swift in Sources */,
@@ -405,6 +420,7 @@
 				86ECB16E1CC86CA200E5259D /* Touch.swift in Sources */,
 				86FC22F01CCD76C1008945C7 /* PaintGestureRecognizer.swift in Sources */,
 				86E9B7BD1CE062D2008EF61F /* ArrayExtensions.swift in Sources */,
+				86F0D56D1CFA7FE300EADF9B /* CGPoint+Utilities.swift in Sources */,
 				86FC22EB1CCD6F71008945C7 /* Shape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
